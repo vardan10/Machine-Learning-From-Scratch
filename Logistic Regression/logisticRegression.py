@@ -1,14 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import h5py
 import scipy
 from PIL import Image
 from scipy import ndimage
-from lr_utils import load_dataset,load_dataset2
+from lr_utils import load_dataset
 
-# %matplotlib inline
-# Provided you are running IPython, the %matplotlib inline will make your plot outputs displayed inline within frontends like the Jupyter notebook, directly below the code cell that produced it.
-# The resulting plots will then also be stored in the notebook document.
 
 
 # Sigmoid function
@@ -19,12 +15,8 @@ def sigmoid(z):
 
 # initialize parameters w and b with zeros
 def initialize_with_zeros(dim):
-    # dim -- size of the w vector we want (or number of parameters in this case)
     w = np.zeros(shape=(dim, 1))
     b = 0
-
-    assert(w.shape == (dim, 1))
-    assert(isinstance(b, float) or isinstance(b, int))
     
     return w, b
 
@@ -51,24 +43,13 @@ def propagate(w, b, X, Y):
     m = X.shape[1]
     
     # FORWARD PROPAGATION (FROM X TO COST)
-    ### START CODE HERE ###
-    A = None                                     # compute activation
-    cost = None                                  # compute cost
-    
     A = sigmoid(np.dot(w.T,X) + b)
     cost = (-1/m) * np.sum((Y * np.log(A)) + (1 - Y) * np.log(1 - A), axis = 1)
     
-    ### END CODE HERE ###
-    
     # BACKWARD PROPAGATION (TO FIND GRAD)
-    ### START CODE HERE ###
-    dw = None
-    db = None
-    
     dw = (1/m) * np.dot(X, (A-Y).T)
     db = (1/m) * np.sum(A - Y, axis = 1)
 
-    ### END CODE HERE ###
 
     assert(dw.shape == w.shape)
     assert(db.dtype == float)
@@ -187,7 +168,6 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations=2000, learning_rate=0
     d -- dictionary containing information about the model.
     """
     
-    ### START CODE HERE ###
     # initialize parameters with zeros
     w, b = initialize_with_zeros(X_train.shape[0])
 
@@ -229,7 +209,7 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations=2000, learning_rate=0
 
 
 # Loading the data (cat/non-cat)
-train_set_x_orig, train_set_y, test_set_x_orig, test_set_y, classes = load_dataset2()
+train_set_x_orig, train_set_y, test_set_x_orig, test_set_y, classes = load_dataset()
 
 # # Example of a picture
 # index = 25
@@ -297,27 +277,13 @@ print("predictions = " + str(predict(w, b, X)))
 
 
 
-
-
-
-
-
 d = model(train_set_x, train_set_y, test_set_x, test_set_y, num_iterations = 2000, learning_rate = 0.005, print_cost = True)
 
 
 
 
 
-# We preprocess the image to fit your algorithm.
-# fname = "real_dataset/positive/a.jpg"
-# image = np.array(ndimage.imread(fname, flatten=False))
-# my_image = scipy.misc.imresize(image, size=(num_px, num_px)).reshape((1, num_px * num_px * 3)).T
-# print(my_image.shape)
-# my_predicted_image = predict(d["w"], d["b"], my_image)
-
-
-
-
+# Testing any image
 train_set_x_orig = []
 train_set_y_orig = []
 fname = 'real_dataset/negative/e.jpg'
