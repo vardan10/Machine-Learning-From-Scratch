@@ -7,8 +7,8 @@
 ### How to Run
 **1.** Clone this Repo <br />
 **2.** Go into logistic regression folder <br />
-**3.** Install Packages (pip install --upgrade -r requirements.txt) <br />
-**4.** Run the project (python sentiment.py) <br />
+**3.** Install Packages (pip3 install --upgrade -r requirements.txt) <br />
+**4.** Run the project (python3 sentiment.py) <br />
 
 ### Model
 ![Model](images/Model.png)
